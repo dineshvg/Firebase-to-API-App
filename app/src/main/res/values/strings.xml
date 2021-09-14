@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Fulfillmentapp</string>
+    <string name="e_mail_address">E-mail address</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="login_cancel_text">The login process has been cancelled</string>
+    <string name="login_failure_text">The given credentials don\'t seem to be correct</string>
+    <string name="login_empty_text">Need credentials</string>
+    <string name="content_view_sub_title">%d Items</string>
+    <string name="facility_ref_id">Facility Ref Id.:</string>
+    <string name="article_status">Status is %s</string>
+    <string name="pickup_list_error_text">Data cannot be loaded at the moment</string>
+    <string name="change_status">Change Status</string>
+    <string name="status_change_dialog_title">Change status of article</string>
+    <string name="status_change_dialog_desc">Do you want to change the status from %s?</string>
+    <string name="status_change_dialog_negative">No</string>
+    <string name="status_change_dialog_positive">Yes</string>
+    <string name="unique_identifier_label">Uuid</string>
+    <string name="version">Version</string>
+    <string name="pickjob_ref_id">PickJob Ref Id.:</string>
+    <string name="article_id">Article Id.:</string>
+    <string name="status">Status</string>
+</resources>

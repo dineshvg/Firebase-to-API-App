@@ -1,0 +1,19 @@
+apply from: "$rootProject.rootDir.absolutePath/androidLibraryConfig.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project('::data')
+    api platform(firebaseLibs.bom)
+    api firebaseLibs.database
+    api firebaseLibs.auth
+    api firebaseLibs.database
+
+    api okHttpLibs.okHttpInterceptor
+    api okHttpLibs.okHttp
+    api retrofitLibs.retrofitCore
+    api retrofitLibs.retrofitMoshi
+    api retrofitLibs.retrofitMock
+
+    api moshiLibs.core
+    api moshiLibs.ktxCore
+}

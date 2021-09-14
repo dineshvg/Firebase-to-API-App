@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.ocfulfillment.fulfillmentapp"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation kotlinLibs.core
+    implementation androidxLibs.appCompat
+    implementation androidxLibs.material
+    implementation androidxLibs.constraintLayout
+
+    implementation androidxLibs.liveData
+    implementation androidxLibs.viewModel
+
+    api project('::domain')
+    api project('::data')
+
+    implementation platform(firebaseLibs.bom)
+    implementation firebaseLibs.database
+    implementation firebaseLibs.auth
+    implementation googleLibs.playServices
+
+    implementation imageLibs.coil
+
+    implementation koinLibs.core
+    implementation koinLibs.android
+    implementation navigationLibs.navigationFragment
+    implementation navigationLibs.navigationUI
+
+    testImplementation 'junit:junit:4.13.2'
+}

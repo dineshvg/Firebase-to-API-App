@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ocfulfillment.fulfillmentapp.login.view.LoginFragment"
+        android:label="Login Fragment"
+        tools:layout="@layout/fragment_login" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/pickupListFragment"
+        android:name="com.ocfulfillment.fulfillmentapp.pickup.list.view.PickupListFragment"
+        android:label="PickupList Fragment"
+        tools:layout="@layout/fragment_pickup_list" />
+
+</navigation>

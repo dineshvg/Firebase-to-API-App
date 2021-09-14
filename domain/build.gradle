@@ -1,0 +1,7 @@
+apply from: "$rootProject.rootDir.absolutePath/androidLibraryConfig.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project('::api')
+    api project('::data')
+}
