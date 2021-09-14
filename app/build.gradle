@@ -33,6 +33,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -60,5 +64,10 @@ dependencies {
     implementation navigationLibs.navigationFragment
     implementation navigationLibs.navigationUI
 
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation testLibs.jUnit5
+    testRuntimeOnly testLibs.jUnit5Engine
+    testImplementation testLibs.mockkAndroid
+    testImplementation testLibs.mockk
+    testImplementation testLibs.coroutinesTest
+    testImplementation testLibs.androidArch
 }

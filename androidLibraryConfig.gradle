@@ -27,7 +27,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11
     }
 }
 
@@ -40,4 +40,10 @@ dependencies {
     implementation koinLibs.core
     implementation koinLibs.android
 
+    testImplementation testLibs.jUnit5
+    testRuntimeOnly testLibs.jUnit5Engine
+    testImplementation testLibs.mockkAndroid
+    testImplementation testLibs.mockk
+    testImplementation testLibs.coroutinesTest
+    testImplementation testLibs.androidArch
 }
