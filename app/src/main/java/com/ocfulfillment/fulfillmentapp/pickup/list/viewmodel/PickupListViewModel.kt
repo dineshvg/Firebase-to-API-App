@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ocfulfillment.fulfillmentapp.data.pickup.*
 import com.ocfulfillment.fulfillmentapp.login.usecase.LogoutUserUseCase
+import com.ocfulfillment.fulfillmentapp.pickup.list.viewmodel.PickupListViewModel.Event.APIUpdateFailure
+import com.ocfulfillment.fulfillmentapp.pickup.list.viewmodel.PickupListViewModel.Event.APIUpdateSuccessful
 import com.ocfulfillment.fulfillmentapp.pickup.usecase.GetFacilityRefIdUseCase
 import com.ocfulfillment.fulfillmentapp.pickup.usecase.GetPickupV1ItemsUseCase
 import com.ocfulfillment.fulfillmentapp.pickup.usecase.TogglePickupV1ItemUseCase
@@ -24,6 +26,15 @@ class PickupListViewModel(
 
     private val mutableState = MutableLiveData<PickupLineItemsViewState>()
     val state: LiveData<PickupLineItemsViewState> = mutableState
+
+    private val mutableEvent = MutableLiveData<Event>()
+    val event: LiveData<Event> = mutableEvent
+
+    sealed interface Event {
+        object APIUpdateSuccessful: Event
+        object APIUpdateFailure: Event
+
+    }
 
     fun initialize() {
         setLoading()
@@ -46,12 +57,18 @@ class PickupListViewModel(
 
     private fun patchDetailsForSelectedPickupJob(item: PickupLineItem) {
         viewModelScope.launch {
-           val message =  updatePickupJob(
+           val isSuccessful =  updatePickupJob(
                 pickupJobId = PickupJobId(item.pickJobRef),
                 version = Version(item.version),
                 statusSelection = StatusSelection(item.toggleStatus())
-            ).message()
-            Log.d("pickup-job-status-msg", message)
+            ).isSuccessful
+
+            Log.d("pickup-job-status-msg", "$isSuccessful")
+
+            when(isSuccessful) {
+                true -> mutableEvent.value = APIUpdateSuccessful
+                else -> mutableEvent.value = APIUpdateFailure
+            }
         }
     }
 
@@ -60,8 +77,8 @@ class PickupListViewModel(
             togglePickupItem(item)
                 .collectLatest { isSuccessful ->
                     if (isSuccessful) {
-                        load()
                         patchDetailsForSelectedPickupJob(item)
+                        load()
                     } else {
                         mutableState.value = PickupLineItemsViewState.Error
                     }
@@ -78,4 +95,5 @@ class PickupListViewModel(
     private fun setLoading() {
         mutableState.value = PickupLineItemsViewState.Loading
     }
+
 }

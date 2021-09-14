@@ -11,5 +11,5 @@ class LoginRemoteSource(
 
     fun logout() = auth.signOut()
 
-    fun getJsonWebToken() = user.getIdToken(false)
+    fun listenToJsonWebToken() = user.getIdToken(true)
 }

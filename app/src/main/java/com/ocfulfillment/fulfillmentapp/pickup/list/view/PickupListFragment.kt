@@ -15,6 +15,7 @@ import com.ocfulfillment.fulfillmentapp.databinding.FragmentPickupListBinding
 import com.ocfulfillment.fulfillmentapp.navigation.Navigation
 import com.ocfulfillment.fulfillmentapp.pickup.list.view.adapter.PickupLineItemAdapter
 import com.ocfulfillment.fulfillmentapp.pickup.list.viewmodel.PickupListViewModel
+import com.ocfulfillment.fulfillmentapp.pickup.list.viewmodel.PickupListViewModel.Event
 import org.koin.android.ext.android.inject
 
 class PickupListFragment: Fragment(R.layout.fragment_pickup_list) {
@@ -67,6 +68,17 @@ class PickupListFragment: Fragment(R.layout.fragment_pickup_list) {
         viewModel.initialize()
 
         viewModel.state.observe(viewLifecycleOwner, Observer(::onStateChanged))
+
+        viewModel.event.observe(viewLifecycleOwner, Observer(::onEventFired))
+    }
+
+    private fun onEventFired(event: Event) {
+        when(event) {
+
+            Event.APIUpdateFailure -> Snackbar.make(binding.root, getString(R.string.api_error), Snackbar.LENGTH_SHORT).show()
+
+            Event.APIUpdateSuccessful -> Snackbar.make(binding.root, getString(R.string.api_success), Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun onStateChanged(state: PickupLineItemsViewState) {
@@ -81,11 +93,7 @@ class PickupListFragment: Fragment(R.layout.fragment_pickup_list) {
             Error -> {
                 binding.loadingIndicator.isVisible = false
                 binding.pickLineItemsRecyclerView.isVisible = true
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.pickup_list_error_text),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                Snackbar.make(binding.root, getString(R.string.pickup_list_error_text), Snackbar.LENGTH_SHORT).show()
             }
             Loading -> {
                 binding.loadingIndicator.isVisible = true

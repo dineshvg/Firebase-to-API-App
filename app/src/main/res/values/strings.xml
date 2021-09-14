@@ -20,4 +20,6 @@
     <string name="pickjob_ref_id">PickJob Ref Id.:</string>
     <string name="article_id">Article Id.:</string>
     <string name="status">Status</string>
+    <string name="api_error">could not update Fulfillment API</string>
+    <string name="api_success">Updated Fulfillment API</string>
 </resources>
